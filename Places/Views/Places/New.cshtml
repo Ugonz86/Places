@@ -1,7 +1,12 @@
-<h1>Places I've Been</h1>
-<br>
-<form action="/places" method="post">
-  <label for="cityName">Add a new city</label>
-  <input id="cityName" name="cityName" type="text">
-  <button type="submit">Submit</button>
+@{
+    Layout = "_Layout";
+}
+
+<h1>Add a new city to @Model.Name</h1>
+
+<form action="/categories/@Model.Id/places" method="post">
+  <input id="categoryId" name="categoryId" type="hidden" value="@Model.Id">
+  <label for="placeDescription">Place Description</label>
+  <input id="placeDescription" name="placeDescription" type="text">
+  <button type='submit'>Add city</button>
 </form>

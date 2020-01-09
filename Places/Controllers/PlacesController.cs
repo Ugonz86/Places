@@ -7,31 +7,22 @@ namespace Places.Controllers
   public class PlacesController : Controller
   {
 
-    [HttpGet("/places")]
-    public ActionResult Index()
+    [HttpGet("/categories/{categoryId}/places/new")]
+    public ActionResult New(int categoryId)
     {
-      List<Place> allPlaces = Place.GetAll();
-      return View(allPlaces);
+       Category category = Category.Find(categoryId);
+       return View(category);
     }
 
-    [HttpGet("/places/new")]
-    public ActionResult New()
+    [HttpGet("/categories/{categoryId}/places/{placeId}")]
+    public ActionResult Show(int categoryId, int placeId)
     {
-      return View();
-    }
-
-    [HttpPost("/places")]
-    public ActionResult Create(string cityName)
-    {
-      Place myPlace = new Place(cityName);
-      return RedirectToAction("Index");
-    }
-
-    [HttpGet("/places/{id}")]
-    public ActionResult Show(int id)
-    {
-      Place foundPlace = Place.Find(id);
-      return View(foundPlace);
+      Place place = Place.Find(placeId);
+      Category category = Category.Find(categoryId);
+      Dictionary<string, object> model = new Dictionary<string, object>();
+      model.Add("place", place);
+      model.Add("category", category);
+      return View(model);
     }
 
     [HttpPost("/places/delete")]

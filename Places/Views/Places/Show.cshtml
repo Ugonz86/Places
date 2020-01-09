@@ -1,7 +1,13 @@
+@{
+    Layout = "_Layout";
+}
+
 <h1>Places I've Been: </h1>
 
-<h2>@Model.CityName</h2>
+<h2>@Model["place"].Description</h2>
+<h3>Category: @Model["category"].Name</h3>
 
-@* <a href='/places/new'>Add a memory</a> *@
-<a href='/places/new'>Add another city</a>
-<a href='/places'>View all cities</a>
+<h3><a href='/newmemory'>Add a memory</a></h3>
+
+<a href='/categories/@Model["category"].Id/places/new'>Add another place</a>
+<a href='/categories'>View all categories</a>

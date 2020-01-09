@@ -1,0 +1,23 @@
+@{
+    Layout = "_Layout";
+}
+
+@using Places.Models;
+<center>
+<br>
+<h1>Places I've Been Blog</h1>
+
+<h3>Here are all the cities in the category @Model["category"].Name:</h3>
+<br>
+<ol>
+@foreach (Place place in @Model["places"])
+{
+  <h4><a href='/categories/@Model["category"].Id/places/@place.Id'>@place.Description</a></h4>
+}
+</ol>
+<br>
+
+<p><a href='/categories/@Model["category"].Id/places/new'>Add a new city</a></p>
+<p><a href='/categories'>Return to category list</a></p>
+<p><a href='/'>Return to Main Page</a></p>
+</center>
