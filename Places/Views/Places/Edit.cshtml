@@ -1,0 +1,23 @@
+@{
+  Layout = "_Layout";
+}
+
+@model Places.Models.Place
+
+<h2>Edit</h2>
+
+<h4>Edit this city: @Html.DisplayFor(model => model.Continent)</h4>
+
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(model => model.PlaceId)
+
+    @Html.LabelFor(model => model.Continent)
+    @Html.EditorFor(model => model.Continent)
+
+    @* @Html.LabelFor(model => model.Category)
+    @Html.DropDownList("CategoryId") *@
+
+    <input type="submit" value="Save" />
+}
+<p>@Html.ActionLink("Back to list", "Index")</p>

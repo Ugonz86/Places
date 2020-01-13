@@ -1,35 +1,72 @@
 using Microsoft.AspNetCore.Mvc;
 using Places.Models;
 using System.Collections.Generic;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace Places.Controllers
 {
   public class PlacesController : Controller
   {
+    private readonly PlacesContext _db;
 
-    [HttpGet("/categories/{categoryId}/places/new")]
-    public ActionResult New(int categoryId)
+    public PlacesController(PlacesContext db)
     {
-       Category category = Category.Find(categoryId);
-       return View(category);
+      _db = db;
     }
 
-    [HttpGet("/categories/{categoryId}/places/{placeId}")]
-    public ActionResult Show(int categoryId, int placeId)
+    public ActionResult Index()
     {
-      Place place = Place.Find(placeId);
-      Category category = Category.Find(categoryId);
-      Dictionary<string, object> model = new Dictionary<string, object>();
-      model.Add("place", place);
-      model.Add("category", category);
+      List<Place> model = _db.Places.ToList();
       return View(model);
     }
 
-    [HttpPost("/places/delete")]
-    public ActionResult DeleteAll()
+    public ActionResult Create()
     {
-      Place.ClearAll();
       return View();
+    }
+
+    [HttpPost]
+    public ActionResult Create(Place place)
+    {
+      _db.Places.Add(place);
+      _db.SaveChanges();
+      return RedirectToAction("Index");
+    }
+
+    public ActionResult Details(int id)
+    {
+      Place thisPlace = _db.Places.FirstOrDefault(places => places.PlaceId == id);
+      return View(thisPlace);
+    }
+
+    public ActionResult Edit(int id)
+    {
+        var thisPlace = _db.Places.FirstOrDefault(places => places.PlaceId == id);
+        return View(thisPlace);
+    }
+
+    [HttpPost]
+    public ActionResult Edit(Place place)
+    {
+        _db.Entry(place).State = EntityState.Modified;
+        _db.SaveChanges();
+        return RedirectToAction("Index");
+    }
+
+    public ActionResult Delete(int id)
+    {
+        var thisPlace = _db.Places.FirstOrDefault(places => places.PlaceId == id);
+        return View(thisPlace);
+    }
+
+    [HttpPost, ActionName("Delete")]
+    public ActionResult DeleteConfirmed(int id)
+    {
+        var thisPlace = _db.Places.FirstOrDefault(places => places.PlaceId == id);
+        _db.Places.Remove(thisPlace);
+        _db.SaveChanges();
+        return RedirectToAction("Index");
     }
 
   }

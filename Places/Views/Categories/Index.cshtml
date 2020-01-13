@@ -1,4 +1,4 @@
-@{
+@* @{
     Layout = "_Layout";
 }
 @using Places.Models;
@@ -21,4 +21,6 @@
 <p><a href='/categories/new'>Add a new category</a></p>
 
 <p><a href='/'>Back home</a></p>
-</center>
+</center> *@
+
+<p>@Html.ActionLink("Home", "Index", "Home")</p>

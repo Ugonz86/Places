@@ -1,0 +1,14 @@
+@{
+  Layout = "_Layout";
+}
+
+@model Places.Models.Place
+
+<h4>Add a new city</h4>
+@using (Html.BeginForm())
+{
+    @Html.LabelFor(model => model.Continent)
+    @Html.TextBoxFor(model => model.Continent)
+    <input type="submit" value="Add new continent" />
+}
+<p>@Html.ActionLink("Show all continents", "Index")</p>

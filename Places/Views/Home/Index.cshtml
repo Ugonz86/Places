@@ -1,10 +1,6 @@
 @{
-    Layout = "_Layout";
+  Layout = "_Layout";
 }
-<center>
-<br>
-<h1>Welcome to the My Travel Blog!</h1>
-<br>
-<h3><a href='/categories'>View categories</a></h3>
-<h3><a href='/categories/new'>Add a new category</a></h3>
-</center>
+
+<h1>Welcome to my travel blog!</h1>
+<p>@Html.ActionLink("See all places", "Index", "Places")</p>
